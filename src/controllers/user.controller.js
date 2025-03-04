@@ -2,7 +2,8 @@ import { User } from "../models/user.models"
 import uploadOnCloudinary from "../utils/cloudinary.utils"
 import fs from 'fs'
 import { v2 as cloudinary } from "cloudinary"
-import jwt from 'jwt'
+import jwt from 'jsonwebtoken'
+import fs from 'fs'
 
 
 const generateAccessToken = async (userId)=>{
@@ -247,6 +248,11 @@ const updateAvatar = async (req,res)=>{
         ).select("-password -refresh_token")
 
         if(!user){
+            if(req.file){
+                fs.unlinkSync(req.file.path,(err)=>{
+                    console.log(err,"error in removing file")
+                })
+            }
             return res.status(403).json({
                 message:"Error In Fetching User"
             })
@@ -256,6 +262,11 @@ const updateAvatar = async (req,res)=>{
             message:"Successfully Updated "
         })
     } catch (error) {
+        if(req.file){
+            fs.unlinkSync(req.file.path,(err)=>{
+                console.log(err,"error in removing file")
+            })
+        }
         return res.status(500).json({
             message:"Server Error In Updating User"
         })
