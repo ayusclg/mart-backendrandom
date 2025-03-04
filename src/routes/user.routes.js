@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { Upload } from "../middlewares/multer.middlewares.js";
-import { createUser } from "../controllers/user.controller.js";
+import { createUser, currentUser, deleteUser, newAccessToken, updatePassword, updateUser, userLogin, userLogout } from "../controllers/user.controller.js";
 import joi from 'joi'
+import verifyToken from "../middlewares/auth.middlewares.js";
 
 
 
@@ -33,4 +34,11 @@ router.route("/create").post(Upload.single("avatar"),async(req,res,next)=>{
 },createUser)
 
 
+router.route("/login").get(userLogin)
+router.route("/logout").get(verifyToken,userLogout)
+router.route("/upass").patch(verifyToken,updatePassword)
+router.route("/uUser").patch(verifyToken,updateUser)
+router.route("/getuser").get(verifyToken,currentUser)
+router.route("/newaccess").post(verifyToken,newAccessToken)
+router.route("/delete").delete(verifyToken,deleteUser)
 export default router
