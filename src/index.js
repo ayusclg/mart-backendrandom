@@ -2,6 +2,8 @@ import express from 'express'
 import dbConnect from './database/index.js'
 import dotenv from "dotenv"
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
+import helmet from 'helmet'
 
 dotenv.config()
 
@@ -17,6 +19,8 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(cookieParser())
 app.use(express.static("public"))
+app.use(cors())
+app.use(helmet())
 
 
 dbConnect()
