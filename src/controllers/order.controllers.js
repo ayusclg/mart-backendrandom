@@ -47,4 +47,43 @@ const createOrder = async(req,res)=>{
     }
 }
 
-export default createOrder
+const fetchSingleUserOrder = async(req,res)=>{
+    try {
+        const order = await Order.findOne({created_by:req.user._id}).populate("created_by","username address")
+        if(!order){
+            return res.status(404).json({
+                message:"No Order Found"
+            })
+        }
+        res.status(200).json({
+            message:"Order Successfully Fetched",
+            data:order
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:"Server Error in Fetching Single User Order"
+        })
+    }
+}
+
+const fetchAllOrder = async(req,res)=>{
+    try {
+        const order = await Order.find().populate("created_by","username address contact")
+        if(!order){
+            return res.status(400).json({
+                message:"No Order Found"
+            })
+        }
+        const total = await Order.countDocuments()
+        res.status(200).json({
+            message:"Fetched All Order",
+            data:order,
+            total:total
+        })
+    } catch (error) {
+        res.status(500).json({
+            message:"Server Error in Fetching all order"
+        })
+    }
+}
+export  {createOrder,fetchSingleUserOrder,fetchAllOrder}
