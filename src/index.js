@@ -4,6 +4,10 @@ import dotenv from "dotenv"
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import helmet from 'helmet'
+import userRoutes from './routes/user.routes.js'
+import productRoutes from './routes/product.routes.js'
+import orderRoutes from './routes/order.routes.js'
+import adminRoutes from './routes/admin.routes.js'
 
 dotenv.config()
 
@@ -34,6 +38,7 @@ app.listen(port,()=>{
 
 
 
-app.get("/",(req,res)=>{
-    res.send("Hello Aayush")   
-})
+app.use("/auth",userRoutes)
+app.use("/product",productRoutes)
+app.use("/order",orderRoutes)
+app.use("/admin",adminRoutes)
