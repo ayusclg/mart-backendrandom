@@ -42,3 +42,5 @@ app.use("/auth",userRoutes)
 app.use("/product",productRoutes)
 app.use("/order",orderRoutes)
 app.use("/admin",adminRoutes)
+
+
