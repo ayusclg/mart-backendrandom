@@ -31,3 +31,5 @@ router.route("/send").post(async(req,res)=>{
         })
     } 
 })
+
+export default router

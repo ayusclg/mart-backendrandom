@@ -8,6 +8,7 @@ import userRoutes from './routes/user.routes.js'
 import productRoutes from './routes/product.routes.js'
 import orderRoutes from './routes/order.routes.js'
 import adminRoutes from './routes/admin.routes.js'
+import emailRoutes from './routes/email.routes.js'
 
 dotenv.config()
 
@@ -43,4 +44,6 @@ app.use("/product",productRoutes)
 app.use("/order",orderRoutes)
 app.use("/admin",adminRoutes)
 
+
+app.use("/email",emailRoutes)
 
